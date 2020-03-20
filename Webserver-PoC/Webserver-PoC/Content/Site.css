@@ -8,6 +8,20 @@
     margin-top:50px;
 }
 
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+
+.carousel-inner > .carousel-item {
+    height: 480px;
+    width: 1000px;
+}
+
+.carousel-item > img {
+    width:100%;
+}
+
 #card-box {
     display: flex;
     width:100%;
