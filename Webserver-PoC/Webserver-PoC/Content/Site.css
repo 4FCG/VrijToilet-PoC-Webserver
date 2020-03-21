@@ -1,7 +1,14 @@
-﻿#body-content {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+﻿#page-flexer {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#body-content {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #body-content > div {
@@ -42,9 +49,14 @@
     z-index:1;
 }
 
+#login-container {
+    height: 100%;
+    margin: 2rem;
+    margin-top: 2rem !important;
+    padding: 1rem;
+}
+
 #footer {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     padding: 5px;
     border-top: solid thin;

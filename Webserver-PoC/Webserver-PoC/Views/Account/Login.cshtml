@@ -1,0 +1,28 @@
+﻿@model Webserver_PoC.Models.LoginForm
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="login-container" class="bg-light">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        <fieldset>
+            <legend>Login</legend>
+            <div class="form-group">
+                <label for="username">Gebruikersnaam</label>
+                @Html.TextBoxFor(m => m.gebruikersnaam, new { @class = "form-control", placeholder = "Vul gebruikersnaam in" })
+                @Html.ValidationMessageFor(m => m.gebruikersnaam, "", new { @class="text-danger" })
+            </div>
+            <div class="form-group">
+                <fieldset disabled="">
+                    <label class="control-label" for="disabledInput">Wachtwoord</label>
+                    <input class="form-control" id="disabledInput" type="text" placeholder="Vul wachtwoord in" disabled="" aria-describedby="passwordHelp">
+                    <small id="passwordHelp" class="form-text text-muted">Wachtwoord functionaliteit staat uit.</small>
+                </fieldset>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </fieldset>
+    }
+</div>
+

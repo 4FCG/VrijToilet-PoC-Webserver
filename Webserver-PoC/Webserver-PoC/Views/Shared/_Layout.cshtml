@@ -8,41 +8,60 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="~/home/index">Vrij Toilet</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div id="page-flexer">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="~/home/index">Vrij Toilet</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        @{string currentController = ViewContext.RouteData.Values["Controller"].ToString(); }
+            @{string currentController = ViewContext.RouteData.Values["Controller"].ToString(); }
 
-        <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item @(currentController == "home" ? "active" : "")">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item @(currentController == "Sensor" ? "active" : "")">
-                    <a class="nav-link" href="#">Sensoren</a>
-                </li>
-                <li class="nav-item @(currentController == "Meting" ? "active" : "")">
-                    <a class="nav-link" href="#">Metingen</a>
-                </li>
-                <li class="nav-item @(currentController == "Account" ? "active" : "")">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item @(currentController == "home" ? "active" : "")">
+                        <a class="nav-link" href="~/home/index">Home</a>
+                    </li>
+                    <li class="nav-item @(currentController == "Sensor" ? "active" : "")">
+                        <a class="nav-link" href="#">Sensoren</a>
+                    </li>
+                    <li class="nav-item @(currentController == "Meting" ? "active" : "")">
+                        <a class="nav-link" href="#">Metingen</a>
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    //logged in
+                    {
+                        <li class="dropdown nav-item @(currentController == "Account" ? "active" : "")">
+                            <a class="nav-link dropdown-toggle" role="button" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @User.Identity.Name
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @Html.ActionLink("Account", "Index", "Account", null, new { @class="dropdown-item"})
+                                @Html.ActionLink("Logout", "Logout", "Account", null ,new { @class="dropdown-item"})
+                            </ul>
+                        </li>
+                    }
+                    //not logged in
+                    else
+                    {
+                        <li class="nav-item @(currentController == "Account" ? "active" : "")">
+                            @Html.ActionLink("Login", "Login", "Account", null, new { @class="nav-link"})
+                        </li>
+                    }
+                </ul>
+            </div>
+        </nav>
+
+        <div id="body-content">
+            @RenderBody()
         </div>
-    </nav>
 
-    <div id="body-content">
-        @RenderBody()
+        <div id="footer">
+            <div style="float:left">Vrij Toilet - Zuyd Hogeschool</div>
+            <div style="float:right">© Copyright 2020. No Rights Reserved</div>
+        </div>
     </div>
-
-    <div id="footer">
-        <div style="float:left">Vrij Toilet - Zuyd Hogeschool</div>
-        <div style="float:right">© Copyright 2020. No Rights Reserved</div>
-    </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
