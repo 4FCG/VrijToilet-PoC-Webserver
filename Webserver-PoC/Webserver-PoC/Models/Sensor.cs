@@ -14,7 +14,7 @@ namespace Webserver_PoC.Models
         {
             Metings = new HashSet<Meting>();
         }
-        //d
+        
         [Key]
         public int sensor_id { get; set; }
 

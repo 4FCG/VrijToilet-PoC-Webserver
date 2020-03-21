@@ -22,8 +22,12 @@
                     <li class="nav-item @(currentController == "home" ? "active" : "")">
                         <a class="nav-link" href="~/home/index">Home</a>
                     </li>
-                    <li class="nav-item @(currentController == "Sensor" ? "active" : "")">
-                        <a class="nav-link" href="#">Sensoren</a>
+                    <li class="dropdown nav-item @(currentController == "Sensor" ? "active" : "")">
+                        <a class="nav-link dropdown-toggle" role="button" id="sensorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Sensoren</a>
+                        <ul class="dropdown-menu">
+                            @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class="dropdown-item" })
+                            @Html.ActionLink("Sensor toevoegen", "Create", "Sensors", null, new { @class="dropdown-item" })
+                        </ul>
                     </li>
                     <li class="nav-item @(currentController == "Meting" ? "active" : "")">
                         <a class="nav-link" href="#">Metingen</a>
@@ -38,7 +42,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 @Html.ActionLink("Account", "Index", "Account", null, new { @class="dropdown-item"})
-                                @Html.ActionLink("Logout", "Logout", "Account", null ,new { @class="dropdown-item"})
+                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class="dropdown-item"})
                             </ul>
                         </li>
                     }
