@@ -14,12 +14,9 @@ namespace Webserver_PoC.Models
         {
             Metings = new HashSet<Meting>();
         }
-        
+
         [Key]
         public int sensor_id { get; set; }
-
-        [Required]
-        public DbGeography coordinates { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -27,6 +24,12 @@ namespace Webserver_PoC.Models
 
         [StringLength(255)]
         public string location_description { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:0.0#####}", ApplyFormatInEditMode = true)]
+        public decimal longitude { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:0.0#####}", ApplyFormatInEditMode = true)]
+        public decimal latitude { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Meting> Metings { get; set; }

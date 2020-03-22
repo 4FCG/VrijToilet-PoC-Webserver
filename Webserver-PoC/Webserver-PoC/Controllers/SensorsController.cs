@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Webserver_PoC.Models;
+using X.PagedList;
 
 namespace Webserver_PoC.Controllers
 {
@@ -15,9 +16,35 @@ namespace Webserver_PoC.Controllers
         private DataContext db = new DataContext();
 
         // GET: Sensors
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string SearchWord, int? page, string currentFilter) 
         {
-            return View(db.Sensors.ToList());
+            ViewBag.CurrentSort = sortOrder;
+
+            if (SearchWord != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                SearchWord = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = SearchWord;
+
+            var sensors = from s in db.Sensors select s;
+
+            if (!String.IsNullOrEmpty(SearchWord))
+            {
+                sensors = sensors.Where(s => s.name.Contains(SearchWord));
+            }
+
+            sensors = sensors.OrderBy(s => s.name);
+
+            int pageSize = 4;
+            int pageNumber = (page ?? 1);
+
+
+            return View(sensors.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Sensors/Details/5
@@ -45,8 +72,7 @@ namespace Webserver_PoC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "sensor_id,coordinates,name,location_description")] Sensor sensor)
+        public ActionResult Create([Bind(Include = "sensor_id,name,location_description, longitude, latitude")] Sensor sensor)
         {
             if (ModelState.IsValid)
             {
@@ -77,8 +103,7 @@ namespace Webserver_PoC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "sensor_id,coordinates,name,location_description")] Sensor sensor)
+        public ActionResult Edit([Bind(Include = "sensor_id,name,location_description, longitude, latitude")] Sensor sensor)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +131,6 @@ namespace Webserver_PoC.Controllers
 
         // POST: Sensors/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Sensor sensor = db.Sensors.Find(id);

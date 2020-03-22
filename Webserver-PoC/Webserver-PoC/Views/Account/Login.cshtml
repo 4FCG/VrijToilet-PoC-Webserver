@@ -9,9 +9,10 @@
     {
         <fieldset>
             <legend>Login</legend>
+            <hr />
             <div class="form-group">
                 <label for="username">Gebruikersnaam</label>
-                @Html.TextBoxFor(m => m.gebruikersnaam, new { @class = "form-control", placeholder = "Vul gebruikersnaam in" })
+                @Html.TextBoxFor(m => m.gebruikersnaam, new { @class = "form-control", id="username", placeholder = "Vul gebruikersnaam in" })
                 @Html.ValidationMessageFor(m => m.gebruikersnaam, "", new { @class="text-danger" })
             </div>
             <div class="form-group">

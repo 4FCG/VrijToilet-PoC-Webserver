@@ -41,6 +41,14 @@ namespace Webserver_PoC.Models
             modelBuilder.Entity<Sensor>()
                 .Property(e => e.location_description)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Sensor>()
+                .Property(e => e.longitude)
+                .HasPrecision(9, 6);
+
+            modelBuilder.Entity<Sensor>()
+                .Property(e => e.latitude)
+                .HasPrecision(9, 6);
         }
     }
 }
