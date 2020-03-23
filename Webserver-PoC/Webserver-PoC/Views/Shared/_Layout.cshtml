@@ -22,7 +22,7 @@
                     <li class="nav-item @(currentController == "home" ? "active" : "")">
                         <a class="nav-link" href="~/home/index">Home</a>
                     </li>
-                    <li class="dropdown nav-item @(currentController == "Sensor" ? "active" : "")">
+                    <li class="dropdown nav-item @(currentController == "Sensors" ? "active" : "")">
                         <a class="nav-link dropdown-toggle" role="button" id="sensorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Sensoren</a>
                         <ul class="dropdown-menu">
                             @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class="dropdown-item" })

@@ -10,11 +10,21 @@
         <legend>Verwijderen</legend>
         <hr/>
         <p>Weet u zeker dat u @(Model.name) permanent wilt verwijderen?</p>
+        <fieldset>
+            <legend>Details</legend>
+            <dl>
+                <dt>Naam</dt>
+                <dd>@(Model.name)</dd>
+                <dt>Beschrijving</dt>
+                <dd>@(Model.location_description)</dd>
+                <dt>Coördinaten</dt>
+                <dd>@(Model.longitude) @(Model.latitude)</dd>
+            </dl>
+        </fieldset>
         @using (Html.BeginForm())
         {
-
             <div class="btn-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Verwijder" class="btn btn-primary" />
                 @Html.ActionLink("Terug", "Index", null, new { @class = "btn btn-secondary" })
             </div>
         }

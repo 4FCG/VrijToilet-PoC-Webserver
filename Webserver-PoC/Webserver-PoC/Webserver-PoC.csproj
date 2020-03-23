@@ -322,6 +322,7 @@
     <Content Include="Views\Sensors\Index.cshtml" />
     <Content Include="Views\Sensors\Edit.cshtml" />
     <Content Include="Views\Sensors\Delete.cshtml" />
+    <Content Include="Views\Sensors\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

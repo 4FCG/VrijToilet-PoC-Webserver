@@ -1,0 +1,49 @@
+﻿@model Webserver_PoC.Models.Sensor
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="login-container" class="bg-light">
+    <fieldset>
+        @using (Html.BeginForm())
+        {
+            <legend>Toevoegen</legend>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <label>Naam</label> 
+
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Locatie beschrijving</label>
+
+                @Html.EditorFor(model => model.location_description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.location_description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Longitude</label>
+
+                @Html.EditorFor(model => model.longitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.longitude, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                <label>Latitude</label>
+
+                @Html.EditorFor(model => model.latitude, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.latitude, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="btn-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                @Html.ActionLink("Terug", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        }
+    </fieldset>
+</div>
