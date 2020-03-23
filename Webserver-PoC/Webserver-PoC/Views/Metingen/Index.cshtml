@@ -1,0 +1,103 @@
+﻿@model X.PagedList.IPagedList<Webserver_PoC.Models.Meting>
+@using X.PagedList
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Common
+@using X.PagedList.Mvc.Bootstrap4
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryui")
+
+<script>
+    $(document).ready(function () {
+        $("#SearchWord").focusout(function () {
+            $("#SearchForm").submit();
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: @(ViewBag.Max),
+            values: [@(ViewBag.ChosenMin), @(ViewBag.ChosenMax)],
+            slide: function (event, ui) {
+                $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+            }
+        });
+        $("#amount").val($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1));
+    })
+</script>
+
+@using (Html.BeginForm("Index", "Metingen", FormMethod.Get, new { id = "SearchForm" }))
+{
+    <div id="toolbar">
+        <div>
+            <div class="searchIcon">
+                <h2>
+                    <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd" />
+                    </svg>
+                </h2>
+            </div>
+
+            @Html.TextBox("SearchWord", ViewBag.CurrentFilter as string, new { placeholder = "Zoek op trefwoord" })
+
+        </div>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle btn btn-primary" role="button" id="metingCountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Meting filter</a>
+            <div class="dropdown-menu slider-dropdown" aria-labelledby="metingCountDropdown">
+                <label>Min - Max</label>
+                <input id="amount" name="MetingFilter" class="dropdown-item" readonly type="text" />
+                <div id="slider-range" class="dropdown-item"></div>
+            </div>
+        </div>
+    </div>
+}
+<table class="table table-hover data-table">
+    <thead>
+        <tr>
+            <th>
+                Sensor naam
+            </th>
+            <th>
+                Ontvangen timestamp
+            </th>
+            <th>
+                Meting aantal
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sensor.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.received_timestamp)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.meting_count)
+                </td>
+                <td>
+                    <div class="btn-group">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.meting_id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.meting_id }, new { @class = "btn btn-primary" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index", "Metingen", new { page, currentfilter = ViewBag.CurrentFilter }), Bootstrap4PagedListRenderOptions.ClassicPlusFirstAndLast)

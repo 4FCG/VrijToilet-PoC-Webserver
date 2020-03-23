@@ -6,6 +6,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/themes/base/css")
 </head>
 <body>
     <div id="page-flexer">
@@ -25,12 +26,16 @@
                     <li class="dropdown nav-item @(currentController == "Sensors" ? "active" : "")">
                         <a class="nav-link dropdown-toggle" role="button" id="sensorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Sensoren</a>
                         <ul class="dropdown-menu">
-                            @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class="dropdown-item" })
-                            @Html.ActionLink("Sensor toevoegen", "Create", "Sensors", null, new { @class="dropdown-item" })
+                            @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Sensor toevoegen", "Create", "Sensors", null, new { @class = "dropdown-item" })
                         </ul>
                     </li>
-                    <li class="nav-item @(currentController == "Meting" ? "active" : "")">
-                        <a class="nav-link" href="#">Metingen</a>
+                    <li class="dropdown nav-item @(currentController == "Metingen" ? "active" : "")">
+                        <a class="nav-link dropdown-toggle" role="button" id="metingDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Metingen</a>
+                        <ul class="dropdown-menu">
+                            @Html.ActionLink("Meting overzicht", "Index", "Metingen", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Meting toevoegen", "Create", "Metingen", null, new { @class = "dropdown-item" })
+                        </ul>
                     </li>
                     @if (User.Identity.IsAuthenticated)
                     //logged in
@@ -41,8 +46,8 @@
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                @Html.ActionLink("Account", "Index", "Account", null, new { @class="dropdown-item"})
-                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class="dropdown-item"})
+                                @Html.ActionLink("Account", "Index", "Account", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Logout", "Logout", "Account", null, new { @class = "dropdown-item" })
                             </ul>
                         </li>
                     }
@@ -50,7 +55,7 @@
                     else
                     {
                         <li class="nav-item @(currentController == "Account" ? "active" : "")">
-                            @Html.ActionLink("Login", "Login", "Account", null, new { @class="nav-link"})
+                            @Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })
                         </li>
                     }
                 </ul>
@@ -66,7 +71,9 @@
             <div style="float:right">© Copyright 2020. No Rights Reserved</div>
         </div>
     </div>
+
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

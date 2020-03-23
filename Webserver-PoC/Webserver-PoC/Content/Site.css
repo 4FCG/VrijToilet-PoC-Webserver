@@ -64,6 +64,11 @@
     margin-right: 0.5rem;
 }
 
+#SearchForm {
+    width: 100%;
+    margin-top:50px;
+}
+
 #toolbar {
     display: flex;
     justify-content: center;
@@ -73,6 +78,12 @@
 #toolbar > div {
     display: flex;
     align-items:center;
+    margin-left:1rem;
+    margin-right:1rem;
+}
+
+.slider-dropdown {
+    padding:10px;
 }
 
 #footer {

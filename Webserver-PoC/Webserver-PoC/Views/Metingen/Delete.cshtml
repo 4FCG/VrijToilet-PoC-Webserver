@@ -1,0 +1,44 @@
+﻿@model Webserver_PoC.Models.Meting
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="login-container" class="bg-light">
+    <fieldset>
+        <legend>Verwijderen</legend>
+        <hr />
+        <p>Weet u zeker dat u deze meting permanent wilt verwijderen?</p>
+        <fieldset>
+            <legend>Details</legend>
+            <dl class="dl-horizontal">
+                <dt>
+                    Sensor naam
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Sensor.name)
+                </dd>
+                <dt>
+                    Ontvangen timestamp
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.received_timestamp)
+                </dd>
+                <dt>
+                    Meting aantal
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.meting_count)
+                </dd>
+            </dl>
+        </fieldset>
+        @using (Html.BeginForm())
+        {
+            <div class="btn-group">
+                <input type="submit" value="Verwijder" class="btn btn-primary" />
+                @Html.ActionLink("Terug", "Index", null, new { @class = "btn btn-secondary" })
+            </div>
+        }
+    </fieldset>
+</div>
