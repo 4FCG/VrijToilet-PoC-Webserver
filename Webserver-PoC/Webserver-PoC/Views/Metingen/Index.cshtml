@@ -59,6 +59,20 @@
                 <div id="slider-range" class="dropdown-item"></div>
             </div>
         </div>
+
+        <div class="dropdown">
+            <a class="dropdown-toggle btn btn-primary" role="button" id="timestampDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Timestamp filter</a>
+            <div class="dropdown-menu slider-dropdown" aria-labelledby="timestampDropdown">
+                <div class="form-group">
+                    <label>Min timestamp</label>
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field received_timestamp must be a date." id="min_timestamp" name="MinTimestamp" type="datetime-local" value="@ViewBag.MinTime">
+                </div>
+                <div class="form-group">
+                    <label>Max timestamp</label>
+                    <input class="form-control text-box single-line" data-val="true" data-val-date="The field received_timestamp must be a date." id="max_timestamp" name="MaxTimestamp" type="datetime-local" value="@ViewBag.MaxTime">
+                </div>
+            </div>
+        </div>
     </div>
 }
 <table class="table table-hover data-table">

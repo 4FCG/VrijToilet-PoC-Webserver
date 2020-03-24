@@ -17,23 +17,25 @@
     });
 </script>
 
-<div id="toolbar">
-    <div>
-        <div class="searchIcon">
-            <h2>
-                <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd" />
-                    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd" />
-                </svg>
-            </h2>
-        </div>
-        
-        @using (Html.BeginForm("Index", "Sensors", FormMethod.Get, new { id = "SearchForm" }))
-        {
+@using (Html.BeginForm("Index", "Sensors", FormMethod.Get, new { id = "SearchForm" }))
+{
+    <div id="toolbar">
+        <div>
+            <div class="searchIcon">
+                <h2>
+                    <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd" />
+                    </svg>
+                </h2>
+            </div>
+
+
             @Html.TextBox("SearchWord", ViewBag.CurrentFilter as string, new { placeholder = "Zoek op trefwoord" })
-        }
+
+        </div>
     </div>
-</div>
+}
 
 <table class="table table-hover data-table">
     <thead>
@@ -79,5 +81,5 @@
         }
     </tbody>
 </table>
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index", "Sensors", new { page, currentfilter = ViewBag.CurrentFilter }), Bootstrap4PagedListRenderOptions.ClassicPlusFirstAndLast)
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+        @Html.PagedListPager(Model, page => Url.Action("Index", "Sensors", new { page, currentfilter = ViewBag.CurrentFilter }), Bootstrap4PagedListRenderOptions.ClassicPlusFirstAndLast)

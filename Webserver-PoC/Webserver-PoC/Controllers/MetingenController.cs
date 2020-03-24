@@ -16,7 +16,7 @@ namespace Webserver_PoC.Controllers
         private DataContext db = new DataContext();
 
         // GET: Metingen
-        public ViewResult Index(string sortOrder, string SearchWord, string MetingFilter, int? page, string currentFilter)
+        public ViewResult Index(string sortOrder, string SearchWord, string MetingFilter, int? page, string currentFilter, string MinTimestamp, string MaxTimestamp)
         {
             ViewBag.CurrentSort = sortOrder;
 
@@ -55,6 +55,32 @@ namespace Webserver_PoC.Controllers
             {
                 ViewBag.ChosenMin = 0;
                 ViewBag.ChosenMax = maxMeting;
+            }
+
+            if (!String.IsNullOrEmpty(MinTimestamp))
+            {
+                if (DateTime.TryParse(MinTimestamp, out DateTime MinTimestampConvert))
+                {
+                    metingen = metingen.Where(m => DateTime.Compare(MinTimestampConvert, m.received_timestamp) < 0);
+                }
+                ViewBag.MinTime = MinTimestampConvert.ToString("s");
+            }
+            else
+            {
+                ViewBag.MinTime = "";
+            }
+
+            if (!String.IsNullOrEmpty(MaxTimestamp))
+            {
+                if (DateTime.TryParse(MaxTimestamp, out DateTime MaxTimestampConvert))
+                {
+                    metingen = metingen.Where(m => DateTime.Compare(MaxTimestampConvert, m.received_timestamp) > 0);
+                }
+                ViewBag.MaxTime = MaxTimestampConvert.ToString("s");
+            }
+            else
+            {
+                ViewBag.MaxTime = "";
             }
 
             metingen = metingen.OrderBy(s => s.Sensor.name);
