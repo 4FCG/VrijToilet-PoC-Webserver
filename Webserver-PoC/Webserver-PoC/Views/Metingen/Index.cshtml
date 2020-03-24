@@ -87,7 +87,10 @@
             <th>
                 Meting aantal
             </th>
-            <th></th>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <th></th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -103,12 +106,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.meting_count)
                 </td>
-                <td>
-                    <div class="btn-group">
-                        @Html.ActionLink("Edit", "Edit", new { id = item.meting_id }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Delete", "Delete", new { id = item.meting_id }, new { @class = "btn btn-primary" })
-                    </div>
-                </td>
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <div class="btn-group">
+                            @Html.ActionLink("Edit", "Edit", new { id = item.meting_id }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.meting_id }, new { @class = "btn btn-primary" })
+                        </div>
+                    </td>
+                }
             </tr>
         }
     </tbody>

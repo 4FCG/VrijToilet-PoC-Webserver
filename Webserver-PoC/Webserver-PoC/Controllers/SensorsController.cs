@@ -74,11 +74,18 @@ namespace Webserver_PoC.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "sensor_id,name,location_description, longitude, latitude")] Sensor sensor)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                db.Sensors.Add(sensor);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Sensors.Add(sensor);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
             }
 
             return View(sensor);
@@ -105,13 +112,21 @@ namespace Webserver_PoC.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "sensor_id,name,location_description, longitude, latitude")] Sensor sensor)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                db.Entry(sensor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(sensor).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(sensor);
             }
-            return View(sensor);
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
+            }
+            
         }
 
         // GET: Sensors/Delete/5
@@ -133,10 +148,18 @@ namespace Webserver_PoC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Sensor sensor = db.Sensors.Find(id);
-            db.Sensors.Remove(sensor);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.Identity.IsAuthenticated)
+            {
+                Sensor sensor = db.Sensors.Find(id);
+                db.Sensors.Remove(sensor);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

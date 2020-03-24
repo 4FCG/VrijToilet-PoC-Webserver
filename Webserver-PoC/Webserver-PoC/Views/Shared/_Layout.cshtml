@@ -23,20 +23,29 @@
                     <li class="nav-item @(currentController == "home" ? "active" : "")">
                         <a class="nav-link" href="~/home/index">Home</a>
                     </li>
-                    <li class="dropdown nav-item @(currentController == "Sensors" ? "active" : "")">
-                        <a class="nav-link dropdown-toggle" role="button" id="sensorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Sensoren</a>
-                        <ul class="dropdown-menu">
-                            @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Sensor toevoegen", "Create", "Sensors", null, new { @class = "dropdown-item" })
-                        </ul>
-                    </li>
-                    <li class="dropdown nav-item @(currentController == "Metingen" ? "active" : "")">
-                        <a class="nav-link dropdown-toggle" role="button" id="metingDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Metingen</a>
-                        <ul class="dropdown-menu">
-                            @Html.ActionLink("Meting overzicht", "Index", "Metingen", null, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Meting toevoegen", "Create", "Metingen", null, new { @class = "dropdown-item" })
-                        </ul>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="dropdown nav-item @(currentController == "Sensors" ? "active" : "")">
+                            <a class="nav-link dropdown-toggle" role="button" id="sensorDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Sensoren</a>
+                            <ul class="dropdown-menu">
+                                @Html.ActionLink("Sensor overzicht", "Index", "Sensors", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Sensor toevoegen", "Create", "Sensors", null, new { @class = "dropdown-item" })
+                            </ul>
+                        </li>
+                        <li class="dropdown nav-item @(currentController == "Metingen" ? "active" : "")">
+                            <a class="nav-link dropdown-toggle" role="button" id="metingDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">Metingen</a>
+                            <ul class="dropdown-menu">
+                                @Html.ActionLink("Meting overzicht", "Index", "Metingen", null, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Meting toevoegen", "Create", "Metingen", null, new { @class = "dropdown-item" })
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Sensors", "Index", "Sensors", null, new { @class = String.Concat("nav-item nav-link ", currentController == "Sensors" ? "active" : "") })
+                        @Html.ActionLink("Metingen", "Index", "Metingen", null, new { @class = String.Concat("nav-item nav-link ", currentController == "Metingen" ? "active" : "") })
+                    }
+
                     @if (User.Identity.IsAuthenticated)
                     //logged in
                     {

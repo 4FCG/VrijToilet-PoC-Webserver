@@ -119,15 +119,22 @@ namespace Webserver_PoC.Controllers
         [HttpPost]
         public ActionResult Create([Bind(Include = "meting_id,received_timestamp,meting_count,sensor_id")] Meting meting)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                db.Metings.Add(meting);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    db.Metings.Add(meting);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            ViewBag.sensor_id = new SelectList(db.Sensors, "sensor_id", "name", meting.sensor_id);
-            return View(meting);
+                ViewBag.sensor_id = new SelectList(db.Sensors, "sensor_id", "name", meting.sensor_id);
+                return View(meting);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
+            }
         }
 
         // GET: Metingen/Edit/5
@@ -152,14 +159,21 @@ namespace Webserver_PoC.Controllers
         [HttpPost]
         public ActionResult Edit([Bind(Include = "meting_id,received_timestamp,meting_count,sensor_id")] Meting meting)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                db.Entry(meting).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(meting).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.sensor_id = new SelectList(db.Sensors, "sensor_id", "name", meting.sensor_id);
+                return View(meting);
             }
-            ViewBag.sensor_id = new SelectList(db.Sensors, "sensor_id", "name", meting.sensor_id);
-            return View(meting);
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
+            }
         }
 
         // GET: Metingen/Delete/5
@@ -181,10 +195,17 @@ namespace Webserver_PoC.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Meting meting = db.Metings.Find(id);
-            db.Metings.Remove(meting);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.Identity.IsAuthenticated)
+            {
+                Meting meting = db.Metings.Find(id);
+                db.Metings.Remove(meting);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account", null);
+            }
         }
 
         protected override void Dispose(bool disposing)
