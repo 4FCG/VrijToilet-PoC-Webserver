@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Api";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="login-container" class="bg-light">
+    <h1>Api documentatie</h1>
+    <p>Deze pagina beschrijft de verschillende functionaliteiten van de API en wat deze opleveren.</p>
+    <p>Momenteel is er geen authenticatie nodig om gebruik te maken van de API.</p>
+    <hr />
+
+    <h3>Get All Sensors</h3>
+    <p>Deze functie geeft alle sensoren.</p>
+    <br />
+    <h5>HTTP Request</h5>
+    <code>https://localhost:44390/API/Sensors</code>
+    <br />
+    <br />
+    <h5>Output</h5>
+    <code>[{"sensor_id":5,"name":"Naam","location_description":"Description","longitude":50.000000,"latitude":5.000000}, ...]</code>
+    <hr />
+
+    <h3>Get Specific Sensor</h3>
+    <p>Deze functie geeft een specifieke sensor.</p>
+    <br />
+    <h5>HTTP Request</h5>
+    <code>https://localhost:44390/API/Sensors/{id}</code>
+    <br />
+    <br />
+    <h5>Output</h5>
+    <code>{"sensor_id":5,"name":"Naam","location_description":"Description","longitude":50.000000,"latitude":5.000000}</code>
+    <hr />
+
+    <h3>Get All Metingen</h3>
+    <p>Deze functie geeft alle metingen.</p>
+    <br />
+    <h5>HTTP Request</h5>
+    <code>https://localhost:44390/API/Metingen</code>
+    <br />
+    <br />
+    <h5>Output</h5>
+    <code>[{"meting_id":5,"received_timestamp":"2020-03-20T11:47:57","meting_count":5,"sensor_id":5}, ...]</code>
+    <hr />
+
+    <h3>Get Specific Metingen</h3>
+    <p>Deze functie geeft een specifieke meting.</p>
+    <br />
+    <h5>HTTP Request</h5>
+    <code>https://localhost:44390/API/Metingen/{id}</code>
+    <br />
+    <br />
+    <h5>Output</h5>
+    <code>{"meting_id":5,"received_timestamp":"2020-03-20T11:47:57","meting_count":5,"sensor_id":5}</code>
+</div>
