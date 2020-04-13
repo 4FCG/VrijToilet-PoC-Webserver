@@ -16,6 +16,12 @@
         $("#SearchWord").focusout(function () {
             $("#SearchForm").submit();
         });
+        $("#min_timestamp").focusout(function () {
+            $("#SearchForm").submit();
+        });
+        $("#max_timestamp").focusout(function () {
+            $("#SearchForm").submit();
+        });
     });
 </script>
 
@@ -28,6 +34,9 @@
             values: [@(ViewBag.ChosenMin), @(ViewBag.ChosenMax)],
             slide: function (event, ui) {
                 $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+            },
+            stop: function (event, ui) {
+                $("#SearchForm").submit();
             }
         });
         $("#amount").val($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1));
